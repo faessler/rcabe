@@ -91,33 +91,19 @@ export class Phone {
         const btn = KEY_MAP[e.code];
         if (!btn) return;
         e.preventDefault();
-        if (e.repeat && !REPEATABLE.has(btn)) return;
+        if (e.repeat) return;
         this.dispatch(btn);
       },
       { passive: false },
     );
 
-    // On-screen keypad: respond on pointerdown for snappy touch play,
-    // with auto-repeat for the directional / OK keys.
-    let repeatTimer = null;
-    let repeatInterval = null;
-
-    const stopRepeat = () => {
-      if (repeatTimer) clearTimeout(repeatTimer);
-      if (repeatInterval) clearInterval(repeatInterval);
-      repeatTimer = repeatInterval = null;
-    };
-
-    const press = (keyEl) => {
-      const btn = keyEl.dataset.btn;
-      if (!btn) return;
-      keyEl.classList.add("is-pressed");
-      this.dispatch(btn);
-      if (REPEATABLE.has(btn)) {
-        repeatTimer = setTimeout(() => {
-          repeatInterval = setInterval(() => this.dispatch(btn), 90);
-        }, 300);
-      }
+    // On-screen keypad: one tap = one action (no auto-repeat), so touch input
+    // behaves exactly like a single key press. We fire on pointerdown for a
+    // snappy feel and de-dupe the follow-up click that pointer taps also emit.
+    const clearPressed = () => {
+      this.keypad
+        .querySelectorAll(".key.is-pressed")
+        .forEach((el) => el.classList.remove("is-pressed"));
     };
 
     this.keypad.addEventListener(
@@ -126,25 +112,29 @@ export class Phone {
         const keyEl = e.target.closest(".key");
         if (!keyEl) return;
         e.preventDefault();
-        press(keyEl);
+        keyEl.classList.add("is-pressed");
+        this._suppressClick = true;
+        this.dispatch(keyEl.dataset.btn);
       },
       { passive: false },
     );
 
-    const release = (e) => {
-      stopRepeat();
-      const keyEl = e.target.closest && e.target.closest(".key");
-      if (keyEl) keyEl.classList.remove("is-pressed");
-      this.keypad
-        .querySelectorAll(".key.is-pressed")
-        .forEach((el) => el.classList.remove("is-pressed"));
-    };
-    this.keypad.addEventListener("pointerup", release);
-    this.keypad.addEventListener("pointercancel", release);
-    this.keypad.addEventListener("pointerleave", release, true);
-    // Prevent long-press context menu / text selection on the pad.
+    // Fallback for environments without pointer events.
+    this.keypad.addEventListener("click", (e) => {
+      const keyEl = e.target.closest(".key");
+      if (!keyEl) return;
+      if (this._suppressClick) {
+        this._suppressClick = false;
+        return;
+      }
+      keyEl.classList.add("is-pressed");
+      this.dispatch(keyEl.dataset.btn);
+      setTimeout(clearPressed, 90);
+    });
+
+    ["pointerup", "pointercancel", "pointerleave"].forEach((type) =>
+      this.keypad.addEventListener(type, clearPressed),
+    );
     this.keypad.addEventListener("contextmenu", (e) => e.preventDefault());
   }
 }
-
-const REPEATABLE = new Set(["up", "down", "left", "right"]);
