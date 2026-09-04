@@ -28,7 +28,8 @@ renders an on-screen flip-phone keypad so you can play by touch on a phone.
 
 Game specifics:
 
-- **Snake** — D-pad to steer, OK to start / retry. Walls are deadly.
+- **Snake** — D-pad to steer, OK to start / retry. Edges wrap around; only
+  running into yourself ends the game.
 - **Minesweeper** — D-pad moves the cursor, OK reveals, `#` (or the Flag soft
   key) toggles a flag. First reveal is always safe.
 - **Tetris** — Left/Right move, Up rotates, Down soft-drops, OK hard-drops.

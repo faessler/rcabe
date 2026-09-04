@@ -1,5 +1,5 @@
 // Offline-first service worker for Flip Arcade.
-const CACHE = "flip-arcade-v3";
+const CACHE = "flip-arcade-v4";
 
 const ASSETS = [
   "./",

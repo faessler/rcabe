@@ -53,14 +53,12 @@ export function createSnake(ctx) {
 
   function stepGame() {
     dir = nextDir;
-    const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
-    if (
-      head.x < 0 ||
-      head.y < 0 ||
-      head.x >= COLS ||
-      head.y >= ROWS ||
-      snake.some((s) => s.x === head.x && s.y === head.y)
-    ) {
+    // Edges wrap around (friendlier for touch play); only self-collision kills.
+    const head = {
+      x: (snake[0].x + dir.x + COLS) % COLS,
+      y: (snake[0].y + dir.y + ROWS) % ROWS,
+    };
+    if (snake.some((s) => s.x === head.x && s.y === head.y)) {
       gameOver();
       return;
     }
