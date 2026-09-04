@@ -3,8 +3,8 @@ import { createLoop, fitCanvas, loadScore, saveScore } from "../util.js";
 const COLS = 16;
 const ROWS = 20;
 const CELL = 8;
-const START_STEP = 200; // ms per move
-const MIN_STEP = 70;
+const START_STEP = 280; // ms per move (gentle enough for touch play)
+const MIN_STEP = 100;
 
 export function createSnake(ctx) {
   let canvas, g, stopLoop, onResize;
@@ -67,7 +67,7 @@ export function createSnake(ctx) {
     snake.unshift(head);
     if (head.x === food.x && head.y === food.y) {
       score += 1;
-      step = Math.max(MIN_STEP, START_STEP - score * 6);
+      step = Math.max(MIN_STEP, START_STEP - score * 8);
       placeFood();
     } else {
       snake.pop();
