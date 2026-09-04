@@ -1,0 +1,15 @@
+{
+  "name": "flip-arcade",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Retro flip-phone arcade (Snake, Minesweeper, Tetris) as an offline PWA.",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "start": "node scripts/serve.mjs",
+    "build:icons": "node scripts/gen-icons.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

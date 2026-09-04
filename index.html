@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#101418" />
+    <meta name="description" content="Retro flip-phone arcade — Snake, Minesweeper & Tetris as an offline PWA." />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Flip Arcade</title>
+  </head>
+  <body>
+    <main class="stage">
+      <div class="phone" id="phone">
+        <div class="phone__top">
+          <span class="phone__speaker"></span>
+          <span class="phone__brand">SAMSUNG</span>
+        </div>
+
+        <div class="screen" id="screen">
+          <div class="screen__glass">
+            <div class="statusbar">
+              <span class="statusbar__signal" aria-hidden="true">
+                <i></i><i></i><i></i><i></i>
+              </span>
+              <span class="statusbar__title" id="statusTitle">Flip Arcade</span>
+              <span class="statusbar__battery" aria-hidden="true"></span>
+            </div>
+            <div class="viewport" id="viewport"></div>
+            <div class="softbar">
+              <span class="softbar__label" id="softLeftLabel">Select</span>
+              <span class="softbar__label softbar__label--right" id="softRightLabel"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="keypad" id="keypad">
+          <div class="keypad__row keypad__row--soft">
+            <button class="key key--soft" data-btn="softLeft" aria-label="Left soft key">
+              <span class="key__glyph">⌐</span>
+            </button>
+            <button class="key key--nav key--up" data-btn="up" aria-label="Up">▲</button>
+            <button class="key key--soft" data-btn="softRight" aria-label="Right soft key">
+              <span class="key__glyph">¬</span>
+            </button>
+          </div>
+
+          <div class="keypad__row keypad__row--dpad">
+            <button class="key key--nav key--left" data-btn="left" aria-label="Left">◀</button>
+            <button class="key key--ok" data-btn="ok" aria-label="OK">OK</button>
+            <button class="key key--nav key--right" data-btn="right" aria-label="Right">▶</button>
+          </div>
+
+          <div class="keypad__row keypad__row--dpad">
+            <button class="key key--call" data-btn="call" aria-label="Call">
+              <span class="key__glyph">✆</span>
+            </button>
+            <button class="key key--nav key--down" data-btn="down" aria-label="Down">▼</button>
+            <button class="key key--end" data-btn="end" aria-label="End / Back">
+              <span class="key__glyph">✆</span>
+            </button>
+          </div>
+
+          <div class="keypad__row keypad__row--num">
+            <button class="key key--num" data-btn="num1"><b>1</b><small>&nbsp;</small></button>
+            <button class="key key--num" data-btn="num2"><b>2</b><small>abc</small></button>
+            <button class="key key--num" data-btn="num3"><b>3</b><small>def</small></button>
+          </div>
+          <div class="keypad__row keypad__row--num">
+            <button class="key key--num" data-btn="num4"><b>4</b><small>ghi</small></button>
+            <button class="key key--num" data-btn="num5"><b>5</b><small>jkl</small></button>
+            <button class="key key--num" data-btn="num6"><b>6</b><small>mno</small></button>
+          </div>
+          <div class="keypad__row keypad__row--num">
+            <button class="key key--num" data-btn="num7"><b>7</b><small>pqrs</small></button>
+            <button class="key key--num" data-btn="num8"><b>8</b><small>tuv</small></button>
+            <button class="key key--num" data-btn="num9"><b>9</b><small>wxyz</small></button>
+          </div>
+          <div class="keypad__row keypad__row--num">
+            <button class="key key--num" data-btn="star"><b>*</b><small>+</small></button>
+            <button class="key key--num" data-btn="num0"><b>0</b><small>␣</small></button>
+            <button class="key key--num" data-btn="hash"><b>#</b><small>flag</small></button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

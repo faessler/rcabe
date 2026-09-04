@@ -1,0 +1,11 @@
+{
+  "name": "flip-arcade",
+  "install": "node scripts/gen-icons.mjs",
+  "terminals": [
+    {
+      "name": "web",
+      "command": "npm run dev"
+    }
+  ],
+  "ports": [{ "name": "web", "port": 8080 }]
+}
